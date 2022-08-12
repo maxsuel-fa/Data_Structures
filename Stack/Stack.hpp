@@ -1,6 +1,7 @@
 /*
- * Impementation of the Stack data structure using an array representation.
- * @Authon maxsuel-fa
+ * @file Stack.cpp
+ * @brief Impementation of the Stack data structure using an array representation.
+ * @author maxsuel-fa
  */
 #ifndef STACK_H
 #define STACK_H
@@ -41,9 +42,20 @@ public:
         return _data[_top + 1];
     }
 
-    bool is_full(){ return _top == _capacity - 1; }
+    T top() 
+    {
+        try
+        {
+            T top_ = pop();
+            _top++;
+            return top_;
+        }
+        catch (std::runtime_error e) { throw; }
+    }
 
-    bool is_empty() { return _top == EMPTY_INDEX; }
+    bool is_full() { return size() == _capacity; }
+
+    bool is_empty() { return !size(); }
 
     std::size_t capacity() { return _capacity; }
 
