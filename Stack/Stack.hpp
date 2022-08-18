@@ -1,5 +1,5 @@
 /*
- * @file Stack.cpp
+ * @file Stack.hpp
  * @brief Impementation of the Stack data structure using an array representation.
  * @author maxsuel-fa
  */

@@ -53,15 +53,13 @@ public:
 
     bool is_empty() { return _head == _tail; }
 
+    std::size_t capacity() { return _capacity; }
+
 private:
     void _circular_increment(int &entity)
     {
         entity++;
         entity = entity % (_capacity + 1);
     }
-}
-
-
-
-
+}; // class Queue
 #endif // QUEUE_H
