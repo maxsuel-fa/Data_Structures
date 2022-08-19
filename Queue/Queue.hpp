@@ -3,7 +3,7 @@
  * @brief Implementation of the Queue data structure using a circular array representation.
  * @author maxsuel-fa
  */
-#ifdef QUEUE_H
+#ifndef QUEUE_H
 #define QUEUE_H
 
 #include <iostream>
@@ -54,6 +54,17 @@ public:
     bool is_empty() { return _head == _tail; }
 
     std::size_t capacity() { return _capacity; }
+
+    void print() 
+    {
+        int curr = _head;
+        while (curr != _tail)
+        {
+            std::cout << _data[curr] << " ";
+            _circular_increment(curr);
+        }
+        std::cout << std::endl;
+    }
 
 private:
     void _circular_increment(int &entity)
