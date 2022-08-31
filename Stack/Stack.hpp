@@ -16,17 +16,17 @@ class Stack
 private:
     long long _top;
     std::size_t _capacity;
-    T *_data;
+    T* _data;
 
 public:
-    Stack(std::size_t capacity)
+    Stack(std::size_t& capacity)
         : _top (EMPTY_INDEX)
         , _capacity (capacity)
         , _data (new T[_capacity]) {}
 
     ~Stack() { delete _data; }
 
-    void push(const T &elem)
+    void push(const T& elem)
     {
         if (is_full())
             throw std::runtime_error("Overflow: the stack is full");
