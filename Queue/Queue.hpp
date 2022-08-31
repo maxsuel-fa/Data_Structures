@@ -16,10 +16,10 @@ private:
     int _head;
     int _tail;
     std::size_t _capacity;
-    T *_data;
+    T* _data;
 
 public:
-    Queue(const std::size_t &capacity)
+    Queue(const std::size_t& capacity)
         : _head(0)
         , _tail(0)
         , _capacity(capacity)
@@ -27,7 +27,7 @@ public:
 
     ~Queue() { delete _data; }
 
-    void enqueue(const T &elem) 
+    void enqueue(const T& elem) 
     {
         if (is_full())
             throw std::runtime_error("Overflow: the queue is full");
@@ -67,7 +67,7 @@ public:
     }
 
 private:
-    void _circular_increment(int &entity)
+    void _circular_increment(int& entity)
     {
         entity++;
         entity = entity % (_capacity + 1);
