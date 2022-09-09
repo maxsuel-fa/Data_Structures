@@ -21,6 +21,12 @@ int main(void)
     list.pop_back();
     list.pop_back();
     list.print();                      // Expected: 2 1 0 5 6 7
+    
+    list.search(5)->data *= (-1);      // Search for the value in the list
+    list.search(7)->data *= (-1);      // if the value is found, multiplies
+    list.search(10)->data *= (-1);     // it by -1, otherwise do nothing.
+    
+    list.print();                      // Expected: 2 1 0 -5 6 -7
 
     return 0;
 }

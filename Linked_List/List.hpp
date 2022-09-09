@@ -6,7 +6,6 @@
 #define LIST_H
 #include <iostream>
 #include <memory>
-#include <stdexcept>
 #include "../Node/Node.hpp"
 
 template<typename T>
@@ -53,15 +52,13 @@ public:
         sentinel->prev->next = sentinel;
     }
 
-    std::shared_ptr<Node<T>>& search(const T& target)
+    std::shared_ptr<Node<T>> search(const T& target)
     {
         return search(target, sentinel->next);
     }
 
     void print()
     {
-        if (sentinel->next == sentinel)
-            throw std::runtime_error("Error: the list is empty");
         print(sentinel->next);
         std::cout << std::endl;
     }
@@ -74,8 +71,8 @@ public:
 private:
     std::shared_ptr<Node<T>> sentinel;
 
-    std::shared_ptr<Node<T>>& search(const T& target,
-                                     std::shared_ptr<Node<T>>& curr_node)
+    std::shared_ptr<Node<T>> search(const T& target,
+                                     std::shared_ptr<Node<T>> curr_node)
     {
         if (curr_node != sentinel && curr_node->data != target)
             curr_node = search(target, curr_node->next);
@@ -84,9 +81,11 @@ private:
 
     void print(const std::shared_ptr<Node<T>>& curr_node)
     {
-        std::cout << curr_node->data << " ";
-        if (curr_node->next != sentinel)
+        if (curr_node != sentinel)
+        {
+            std::cout << curr_node->data << " ";
             print(curr_node->next);
+        }
     }
 };
 #endif
