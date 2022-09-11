@@ -6,13 +6,28 @@
 #define LIST_H
 #include <iostream>
 #include <memory>
-#include "../Node/Node.hpp"
 
 template<typename T>
 class List
 {
 public:
-    List() : sentinel {std::make_shared<Node<T>>()}
+    struct Node
+    {
+        std::shared_ptr<Node> prev;
+        std::shared_ptr<Node> next;
+        T data;
+
+        Node() = default;
+
+        Node(const T& data_)
+            : data(data_)
+            , prev(nullptr)
+            , next(nullptr) {}
+
+        ~Node() {}
+    };
+
+    List() : sentinel {std::make_shared<Node>()}
     {
         sentinel->prev = sentinel;
         sentinel->next = sentinel;
@@ -20,7 +35,7 @@ public:
 
     void push_front(const T& data)
     {
-        std::shared_ptr<Node<T>> new_node{std::make_shared<Node<T>>(data)};
+        std::shared_ptr<Node> new_node{std::make_shared<Node>(data)};
         new_node->prev = sentinel;
         new_node->next = sentinel->next;
         sentinel->next->prev = new_node;
@@ -29,7 +44,7 @@ public:
 
     void push_back(const T& data)
     {
-        std::shared_ptr<Node<T>> new_node{std::make_shared<Node<T>>(data)};
+        std::shared_ptr<Node> new_node{std::make_shared<Node>(data)};
         new_node->prev = sentinel->prev;
         new_node->next = sentinel;
         sentinel->prev->next = new_node;
@@ -52,7 +67,7 @@ public:
         sentinel->prev->next = sentinel;
     }
 
-    std::shared_ptr<Node<T>> search(const T& target)
+    std::shared_ptr<Node> search(const T& target)
     {
         return search(target, sentinel->next);
     }
@@ -63,23 +78,23 @@ public:
         std::cout << std::endl;
     }
 
-    const std::shared_ptr<Node<T>>& get_sentinel()
+    const std::shared_ptr<Node>& get_sentinel()
     {
         return sentinel;
     }
 
 private:
-    std::shared_ptr<Node<T>> sentinel;
+    std::shared_ptr<Node> sentinel;
 
-    std::shared_ptr<Node<T>> search(const T& target,
-                                     std::shared_ptr<Node<T>> curr_node)
+    std::shared_ptr<Node> search(const T& target,
+                                    std::shared_ptr<Node> curr_node)
     {
         if (curr_node != sentinel && curr_node->data != target)
             curr_node = search(target, curr_node->next);
         return curr_node;
     }
 
-    void print(const std::shared_ptr<Node<T>>& curr_node)
+    void print(const std::shared_ptr<Node>& curr_node)
     {
         if (curr_node != sentinel)
         {
